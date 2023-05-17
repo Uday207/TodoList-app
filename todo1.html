@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- css -->
+    <link rel="stylesheet" href="todo1.css">
+     <!--Icons-->
+    <script src="https://kit.fontawesome.com/9c206210e0.js" crossorigin="anonymous"></script>
+    <title>Todo List</title>
+
+</head>
+<body>
+<!-- main todo container -->
+    <div class="container">
+        
+        <!--input and add button -->
+        <header>
+            <h1>Todo List</h1>           
+            <div class="input-sec">
+                <input id="todo-input" type="text" placeholder="Add a todo items. . ." class="input width width-size" />
+                <button id="add-button" class="btn btn-add ">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- delete buttons -->
+        <div class="todos-filter"> 
+            <button id="delete-selected" class="btn btn-ghost delete-selected-btn">Delete Completed</button>
+            <button id="delete-all" class="btn btn-ghost delete-all-btn">Delete All</button>
+        </div>
+
+        <!-- this is the dynamic content which dds ups all the todos -->
+        <ul id="all-todos" class="todos-list">
+            
+        </ul>
+
+        <!--  filters -->
+        <div class="todos-filter">                
+                <button id="all" class="btn btn-ghost all">All</button>
+                <button id="rem" class="btn btn-ghost rem">Pending</button>
+                <button id="com" class="btn btn-ghost com">Completed</button>
+       </div>
+
+        <!-- value showing completed task and all -->
+        <div class="todos-filter">
+            <div class="completed-task">
+                <p>Completed: <span id="completed-count">0</span></p>
+            </div>
+            <div class="remaining-task">
+                <p>Total Tasks: <span id="remaining-count">0</span></p>
+            </div>
+        </div>
+    </div>
+  
+    <!-- JavaScript -->
+    <script src="todo1.js"></script>
+  
+</body>
+</html>
