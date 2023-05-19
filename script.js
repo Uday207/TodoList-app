@@ -10,7 +10,15 @@ var deleteSButton = document.getElementById("delete-selected");
 //event listners for add and delete
 addButton.addEventListener("click", add);
 deleteAllButton.addEventListener("click", deleteAll);
-deleteSButton.addEventListener("click", deleteS);
+deleteSButton.addEventListener("click", deletecom);
+
+//event listner for enter key
+document.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        add();
+    }
+});
+
 //event listeners for filter task
 document.addEventListener('click', (e) => {
     if (e.target.className.split(' ')[0] == 'complete' || e.target.className.split(' ')[0] == 'comitems') {
@@ -20,36 +28,21 @@ document.addEventListener('click', (e) => {
         deleteTodo(e)
     }
     if (e.target.id == "all") {
-        viewAll();
+        addinmain(todoList);
     }
     if (e.target.id == "rem") {
-        viewRemaining();
+        addinmain(remList);
     }
     if (e.target.id == "com") {
-        viewCompleted();
+         addinmain(comdoList);
     }
 });
-//event listner for enter key
-document.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-        add();
-    }
-});
-//updates the all the remaining, completed and main list
-function update() {
-    comdoList = todoList.filter((ele) => {
-        return ele.complete;
-    })
-    remList = todoList.filter((ele) => {
-        return !ele.complete;
-    })
-    document.getElementById("remaining-count").innerText = todoList.length.toString();
-    document.getElementById("completed-count").innerText = comdoList.length.toString();
-}
-//adds the task in main list
+
+
+//adds the tasks in main list
 function add() {
     var value = todoInput.value;
-    if (value === '') {
+    if (value === '' || value===' ') {
         alert("Task cannot be empty");
         return;
     }
@@ -62,7 +55,7 @@ function add() {
     update();
     addinmain(todoList);
 }
-//renders the main list and views on the main content
+// the main list and views on the main content
 function addinmain(todoList) {
     allTodos.innerHTML = "";
     todoList.forEach(element => {
@@ -80,15 +73,7 @@ function addinmain(todoList) {
         allTodos.innerHTML += x;
     });
 }
-//deletes and indiviual task and update all the list
-function deleteTodo(e) {
-    var deleted = e.target.parentElement.parentElement.getAttribute('id');
-    todoList = todoList.filter((ele) => {
-        return ele.id != deleted;
-    })
-    update();
-    addinmain(todoList);
-}
+
 //completes indiviaula task and updates all the list
 function completeTodo(e) {
     var completed = e.target.parentElement.parentElement.getAttribute('id');
@@ -107,28 +92,41 @@ function completeTodo(e) {
     update();
     addinmain(todoList);
 }
+
+//deletes and indiviual task and update all the list
+function deleteTodo(e) {
+    var deleted = e.target.parentElement.parentElement.getAttribute('id');
+    todoList = todoList.filter((ele) => {
+        return ele.id != deleted;
+    })
+    update();
+    addinmain(todoList);
+}
+
 //deletes all the tasks
 function deleteAll(todo) {
     todoList = [];
     update();
     addinmain(todoList);
 }
+
 //deletes only completed task
-function deleteS(todo) {
+function deletecom(todo) {
     todoList = todoList.filter((ele) => {
         return !ele.complete;
     })
     update();
     addinmain(todoList);
 }
-// functions for filters
-function viewCompleted() {
-    addinmain(comdoList);
-}
-function viewRemaining() {
-    addinmain(remList);
-}
-function viewAll() {
-    addinmain(todoList);
-}
 
+//updates the all the remaining, completed and main list
+function update() {
+    comdoList = todoList.filter((ele) => {
+        return ele.complete;
+    })
+    remList = todoList.filter((ele) => {
+        return !ele.complete;
+    })
+    document.getElementById("remaining-count").innerText = todoList.length.toString();
+    document.getElementById("completed-count").innerText = comdoList.length.toString();
+}
